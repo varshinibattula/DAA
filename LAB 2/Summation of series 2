@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main() {
+    int a, r, n;
+    int sum = 0;
+     
+    printf("Enter first term(a), common ratio(r), no of terms(n): ");
+    scanf("%d %d %d", &a, &r, &n);
+
+    for (int i = 0; i < n; i++) {
+        sum = sum+a;
+        a = a*r;
+    }
+
+    printf("Sum = %d\n", sum);
+    return 0;
+}
