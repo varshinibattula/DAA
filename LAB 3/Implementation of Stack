@@ -58,9 +58,9 @@ void display(Stack* s) {
 int main() {
     Stack myStack;
     initStack(&myStack);
-    push(&myStack, 10);
-    push(&myStack, 20);
-    push(&myStack, 30);
+    push(&myStack, 7);
+    push(&myStack, 14);
+    push(&myStack, 87);
     display(&myStack);
     printf("Top element: %d\n", peek(&myStack));
     printf("Popped: %d\n", pop(&myStack));
