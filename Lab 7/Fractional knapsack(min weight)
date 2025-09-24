@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Item {
+    int weight;
+    int profit;
+};
+
+int cmpWeight(const void *a, const void *b) {
+    return ((struct Item*)a)->weight - ((struct Item*)b)->weight;
+}
+
+int main() {
+    int W = 25;
+    int n = 5;
+    int weights[] = {5, 10, 15, 7, 18};
+    int profits[] = {10, 40, 30, 20, 50};
+    
+    struct Item arr[n];
+    for(int i=0;i<n;i++){
+        arr[i].weight = weights[i];
+        arr[i].profit = profits[i];
+    }
+
+    printf("Min Weight Approach\n");
+    printf("Bag Capacity = %d\n\n", W);
+
+    printf("All Items (weight, profit) = { ");
+    for(int i=0;i<n;i++){
+        printf("(%d,%d)", arr[i].weight, arr[i].profit);
+        if(i!=n-1) printf(", ");
+    }
+    printf(" }\n");
+    qsort(arr, n, sizeof(struct Item), cmpWeight);
+    int curWeight = 0;
+    int totalProfit = 0;
+
+    printf("\nChosen Items:\nwi\tpi\txi\txipi\n");
+    for(int i=0;i<n;i++){
+        if(curWeight >= W) break;
+        if(curWeight + arr[i].weight <= W){
+            curWeight += arr[i].weight;
+            totalProfit += arr[i].profit;
+            printf("%d\t%d\t1\t%d\n", arr[i].weight, arr[i].profit, arr[i].profit);
+        } else {
+            int remain = W - curWeight;
+            int profitTaken = arr[i].profit * remain / arr[i].weight;
+            totalProfit += profitTaken;
+            printf("%d\t%d\t%d/%d\t%d\n", arr[i].weight, arr[i].profit, remain, arr[i].weight, profitTaken);
+            curWeight = W;
+        }
+    }
+
+    printf("\nTotal Profit = %d\n", totalProfit);
+    return 0;
+}
